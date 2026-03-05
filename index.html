@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cab Driver Trip Entry</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 40px 35px;
+      box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3),
+                  inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+    }
+
+    .icon-container {
+      width: 90px;
+      height: 90px;
+      background: linear-gradient(135deg, #e6b800 0%, #ff6b00 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow: 0 10px 30px rgba(230, 184, 0, 0.4);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 10px 30px rgba(230, 184, 0, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 15px 40px rgba(230, 184, 0, 0.6); }
+    }
+
+    .icon-container i {
+      font-size: 40px;
+      color: white;
+    }
+
+    .header h2 {
+      color: #ffffff;
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .header p {
+      color: rgba(255, 255, 255, 0.6);
+      font-size: 14px;
+      margin-top: 8px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+      position: relative;
+    }
+
+    .form-group label {
+      display: block;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 8px;
+      letter-spacing: 0.5px;
+    }
+
+    .input-wrapper {
+      position: relative;
+    }
+
+    .input-wrapper i {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 16px;
+      transition: color 0.3s ease;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 14px 16px 14px 45px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      color: #ffffff;
+      font-size: 15px;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.3s ease;
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.4);
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      background: rgba(255, 255, 255, 0.12);
+      border-color: #e6b800;
+      box-shadow: 0 0 0 3px rgba(230, 184, 0, 0.15),
+                  0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    .input-wrapper:focus-within i {
+      color: #e6b800;
+    }
+
+    select {
+      appearance: none;
+      cursor: pointer;
+    }
+
+    select option {
+      background: #1a1a2e;
+      color: #ffffff;
+    }
+
+    select:focus option {
+      background: #16213e;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, #e6b800 0%, #ff6b00 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      font-family: 'Poppins', sans-serif;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 10px;
+      letter-spacing: 0.5px;
+      box-shadow: 0 5px 20px rgba(230, 184, 0, 0.3);
+    }
+
+    .btn-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(230, 184, 0, 0.5);
+    }
+
+    .btn-submit:active {
+      transform: translateY(0);
+    }
+
+    .success-message {
+      text-align: center;
+      padding: 15px;
+      margin-top: 20px;
+      border-radius: 12px;
+      display: none;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .success-message.show {
+      display: block;
+    }
+
+    .success-message.success {
+      background: rgba(34, 197, 94, 0.15);
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      color: #22c55e;
+    }
+
+    .success-message.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid rgba(239, 68, 68, 0.3);
+      color: #ef4444;
+    }
+
+    .success-message i {
+      margin-right: 8px;
+    }
+
+    /* Floating particles background */
+    .particles {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .particle {
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      background: rgba(230, 184, 0, 0.3);
+      border-radius: 50%;
+      animation: float 15s infinite;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) rotate(720deg); opacity: 0; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Background Particles -->
+  <div class="particles" id="particles"></div>
+
+  <div class="container">
+    <div class="card">
+      <div class="header">
+        <div class="icon-container">
+          <i class="fas fa-taxi"></i>
+        </div>
+        <h2>Trip Entry</h2>
+        <p>Cab Driver Daily Trip Record</p>
+      </div>
+
+      <form id="tripForm">
+        <div class="form-group">
+          <label>SELECT DRIVER</label>
+          <div class="input-wrapper">
+            <i class="fas fa-user"></i>
+            <select id="driver_name" required>
+              <option value="">Select Driver</option>
+              <option value="Driver 1">Driver 1</option>
+              <option value="Driver 2">Driver 2</option>
+              <option value="Driver 3">Driver 3</option>
+              <option value="Driver 4">Driver 4</option>
+              <option value="Driver 5">Driver 5</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>TRIP NUMBER</label>
+          <div class="input-wrapper">
+            <i class="fas fa-hashtag"></i>
+            <input type="number" id="trip_number" placeholder="Enter trip number" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>START KM</label>
+          <div class="input-wrapper">
+            <i class="fas fa-tachometer-alt"></i>
+            <input type="number" id="start_km" placeholder="Enter starting kilometer" required>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>END KM</label>
+          <div class="input-wrapper">
+            <i class="fas fa-flag-checkered"></i>
+            <input type="number" id="end_km" placeholder="Enter ending kilometer" required>
+          </div>
+        </div>
+
+        <button type="submit" class="btn-submit">
+          <i class="fas fa-paper-plane"></i> Submit Trip
+        </button>
+      </form>
+
+      <div class="success-message" id="message"></div>
+    </div>
+  </div>
+
+<script>
+  // Create floating particles
+  function createParticles() {
+    const container = document.getElementById('particles');
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement('div');
+      particle.className = 'particle';
+      particle.style.left = Math.random() * 100 + '%';
+      particle.style.animationDelay = Math.random() * 15 + 's';
+      particle.style.animationDuration = (15 + Math.random() * 10) + 's';
+      container.appendChild(particle);
+    }
+  }
+
+  createParticles();
+
+  // Form submission
+  document.getElementById('tripForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+
+    const data = {
+      driver_name: document.getElementById("driver_name").value,
+      trip_number: document.getElementById("trip_number").value,
+      start_km: document.getElementById("start_km").value,
+      end_km: document.getElementById("end_km").value
+    };
+
+    const messageEl = document.getElementById('message');
+    const submitBtn = document.querySelector('.btn-submit');
+
+    // Show loading state
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+    submitBtn.disabled = true;
+
+    fetch("https://script.google.com/macros/s/AKfycbyq-hqYS_elNaQcKgGQl0lxx9S7r7Fnm4XMNFOppZbItCGF38Cm4wAMmdw1lEmph8WI/exec", {
+      method: "POST",
+      body: JSON.stringify(data)
+    })
+    .then(response => response.json())
+    .then(res => {
+      messageEl.className = 'success-message show success';
+      messageEl.innerHTML = '<i class="fas fa-check-circle"></i> Trip Saved Successfully!';
+      
+      // Reset form
+      document.getElementById('tripForm').reset();
+    })
+    .catch(error => {
+      messageEl.className = 'success-message show error';
+      messageEl.innerHTML = '<i class="fas fa-exclamation-circle"></i> Error submitting data';
+    })
+    .finally(() => {
+      submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Trip';
+      submitBtn.disabled = false;
+      
+      // Hide message after 3 seconds
+      setTimeout(() => {
+        messageEl.classList.remove('show');
+      }, 3000);
+    });
+  });
+</script>
+
+</body>
+</html>
